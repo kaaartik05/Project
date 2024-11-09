@@ -1,3 +1,6 @@
+# Install required packages if not already installed
+!pip install yfinance matplotlib scikit-learn
+
 # Import necessary libraries
 import yfinance as yf
 import numpy as np
@@ -52,9 +55,14 @@ def stock_price_prediction(ticker, start_date, end_date, future_days):
     future_X = np.array(range(len(stock_data), len(stock_data) + future_days)).reshape(-1, 1)
     future_predictions = model.predict(future_X)
 
-    # Generate future dates for predictions
+    # Ensure the future_dates and future_predictions have the same length
     last_date = stock_data.index[-1]
     future_dates = [last_date + timedelta(days=i) for i in range(1, future_days + 1)]
+
+    # Check if lengths match
+    if len(future_dates) != len(future_predictions):
+        print("Mismatch between future dates and predictions!")
+        return None
 
     # Display future predictions
     future_df = pd.DataFrame({'Date': future_dates, 'Predicted Close Price': future_predictions})
