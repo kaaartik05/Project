@@ -1,6 +1,3 @@
-# Install required packages if not already installed
-!pip install yfinance matplotlib scikit-learn
-
 # Import necessary libraries
 import yfinance as yf
 import numpy as np
